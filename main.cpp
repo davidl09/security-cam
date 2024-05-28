@@ -26,7 +26,7 @@ int main() {
     time_point<system_clock> timeStartRecording{};
 
     cv::Ptr<cv::BackgroundSubtractor> backSub{cv::createBackgroundSubtractorMOG2()};
-    cv::VideoCapture camera{0};
+    cv::VideoCapture camera{2};
 
     if (not camera.isOpened()) {
         std::cerr << "Could not find Webcam\n";
