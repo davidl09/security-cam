@@ -1,3 +1,5 @@
+#include "Webcam.h"
+
 #include <iostream>
 #include <atomic>
 
@@ -6,27 +8,34 @@
 
 using namespace std::chrono;
 
+int main() {
+    Webcam camera{0};
+    time_point<system_clock> lastMotionTime{};
+
+    while (true) {
+        const auto frame = camera.getProcessedFrame();
+        cv::imshow("Live", frame);
+
+        const int keyboard = cv::waitKey(30);
+        if (keyboard == 'q' || keyboard == 27) {
+            break;
+        }
+    }
+
+    cv::destroyAllWindows();
+}
+/*
+
 
 static constexpr auto MIN_BLOB_AREA = 500; // Minimum blob area threshold
 static constexpr auto RECORDING_DURATION = 120s;
 
-std::string  getCurrentTimeStr() {
-    const auto now = system_clock::to_time_t(system_clock::now());
-    std::tm now_tm = *std::localtime(&now);
-    return std::format("{:04}-{:02}-{:02}_{:02}:{:02}:{:02}",
-                       now_tm.tm_year + 1900,
-                       now_tm.tm_mon + 1,
-                       now_tm.tm_mday,
-                       now_tm.tm_hour,
-                       now_tm.tm_min,
-                       now_tm.tm_sec);
-}
 
 int main() {
     time_point<system_clock> timeStartRecording{};
 
     cv::Ptr<cv::BackgroundSubtractor> backSub{cv::createBackgroundSubtractorMOG2()};
-    cv::VideoCapture camera{2};
+    cv::VideoCapture camera{0};
 
     if (not camera.isOpened()) {
         std::cerr << "Could not find Webcam\n";
@@ -95,7 +104,6 @@ int main() {
 
         cv::imshow("Frame", frame);
 
-
         if (system_clock::now() - timeStartRecording < RECORDING_DURATION) {
             file.write(frame);
         }
@@ -111,3 +119,4 @@ int main() {
     file.release();
     cv::destroyAllWindows();
 }
+*/

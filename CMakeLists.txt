@@ -2,12 +2,13 @@ cmake_minimum_required(VERSION 3.27)
 project(cam)
 
 set(CMAKE_CXX_STANDARD 23)
-set(OpenCV_DIR "${/usr/lib/x86_64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake}")
+set(OpenCV_DIR "${/usr/lib/x86_64-linux-gnu/cmake/opencv4}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 
 find_package(OpenCV REQUIRED)
 
-add_executable(cam main.cpp)
+add_executable(cam main.cpp
+        timestr.h)
 
 target_include_directories(cam PUBLIC ${OpenCV_INCLUDE_DIRS})
 
